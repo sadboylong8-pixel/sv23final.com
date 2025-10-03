@@ -1,0 +1,415 @@
+<main class="sub-main p-5">
+    <!-- start header -->
+    <header class="sub-head d-flex">
+        <div class="input-group mb-3 left-head">
+            <input type="search" #filter (keydown)="search(filter.value)" class="form-control search" placeholder="Search product..." />
+            <button class="btn search-btn rounded-end-circle" type="button">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <div class="right-head d-flex">
+            <button type="button" class="btn rounded-pill btn-style" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+    aria-controls="offcanvasTop">
+                <i class="bi bi-funnel-fill"></i>
+                <span class="ms-2">Filters</span>
+            </button>
+            <button type="button" class="btn rounded-pill btn-style ms-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" (click)="openModal(0)">
+                <i class="bi bi-plus-circle"></i>
+                <span class="ms-2">Add a product</span>
+            </button>
+        </div>
+    </header>
+    <!-- end::header -->
+    <!-- start-body -->
+    @defer (on timer(500ms)) {
+    <div class="table-body">
+        <!-- table head -->
+        <div class="head-table d-flex rounded-pill ps-4 pe-4 mt-3">
+            <span class="" style="width: 30%;">
+                Product Name<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 15%;">
+                Barcode<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 15%;">
+                Category<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 10%;">
+                Price<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 15%;">
+                Status<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 200px;">
+                Actions<i class="bi bi-chevron-expand"></i>
+            </span>
+        </div>
+        <!-- table body -->
+        <div class="main-body">
+            @for(item of displayProducts; track $index){
+            <div class="d-flex body-table ps-4 pe-4 rounded">
+                <div class="name">
+                    <div class="img-card">
+                        <img [src]="item.imageUrl" alt="">
+                    </div>
+                    <span class="ms-3">{{item.name}}</span>
+                </div>
+                <div class="barcode">
+                    <span>{{item.barcode}}</span>
+                </div>
+                <div class="barcode">
+                    <span>{{item.category}}</span>
+                </div>
+                <div class="price">
+                    <span>$ {{item.sellPrice}}</span>
+                </div>
+                <div class="barcode">
+                    <div class="status-border">
+                        @if(item.status){
+                        <div class="status-dot"></div>
+                        <span>Active</span>
+                        } @else {
+                        <div class="status-dot" style="background-color: red;"></div>
+                        <span>Inactive</span>
+                        }
+                    </div>
+                </div>
+                <div class="action">
+                    <button type="button" class="btn btn-sm text-light me-2 btn-hover"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="edit(item)">
+                        <i class="bi bi-pencil me-2"></i>Edit
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-trash" (click)="Delete(item.id)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm text-light ms-2 btn-hover"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="showCurrentDetail(item)">
+                        Detail
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+    <!-- end::body -->
+</main>
+<!-- start modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="overflow: hidden;">
+            <div class="modal-header text-light" style="background-color: var(--bg-dark-blue);">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    @if(detail()==0){
+                        @if(!checkUpdate){
+                            Add new product
+                        } @else {
+                            Update product
+                        }
+                    } @else {
+                        Product detail
+                    }
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" [style.transform]="`translateX(-${detail()*50}%)`">
+                <div class="d-flex create-product">
+                    <div class="progressing p-3">
+                        <!-- From Uiverse.io by PriyanshuGupta28 -->
+                        <h3>Progressing</h3>
+                        <div class="stepper-box">
+                            <div class="stepper-step {{checkStep1()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep1()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>1</span>
+                                    }
+                                </div>
+                                <div class="stepper-line"></div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step One</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep1()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep1()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stepper-step {{checkStep2()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep2()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>2</span>
+                                    }
+                                </div>
+                                <div class="stepper-line"></div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step Two</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep2()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep2()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stepper-step {{checkStep3()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep3()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>3</span>
+                                    }
+                                </div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step Three</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep3()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep3()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-process ps-3">
+                        <div class="process-head d-flex">
+                            <span [class.active]="currentStep===0">Step One</span>
+                            <span [class.active]="currentStep===1">Step Two</span>
+                            <span [class.active]="currentStep===2">Step Three</span>
+                        </div>
+                        <div class="process-body">
+                            <div class="each-step" #step
+                                [style.transform]="'translateX(-' + (currentStep * 33.33) + '%)'">
+                                <div class="step-one">
+                                    <h4 class="mt-3">Product Name and Category</h4>
+                                    <div class="mt-3">
+                                        <label for="">Product Name</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" [(ngModel)]="item.name" name="name"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="">Barcode</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" [(ngModel)]="item.barcode" name="barcode"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="">Category</label>
+                                        <span class="text-danger"> *</span>
+                                        <select class="form-select mt-1 b-style" [(ngModel)]="item.category"
+                                            name="category_id">
+                                            <option value="Drink" selected>Drink</option>
+                                            <option value="Food">Food</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="step-two">
+                                    <h4 class="mt-3">Sell Price and Status</h4>
+                                    <div class="mt-3">
+                                        <label for="">Sell Price</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="number" [(ngModel)]="item.sellPrice" name="sell_price"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <div>
+                                            <label for="">Status</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input b-style" [(ngModel)]="item.status"
+                                                type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true">
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input b-style" [(ngModel)]="item.status"
+                                                type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false">
+                                            <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                        </div>
+                                        <p class="mt-4">You have to complete the selling price and status</p>
+                                        <ul>
+                                            <li>Sell price : How much you want to sell to customer?</li>
+                                            <li>Status : Is this product in stock or sold out?</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="step-three">
+                                    <h4 class="mt-3">Image Url and Ingredients</h4>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">Image Url</label>
+                                        <span class="text-danger"> (Optional)</span>
+                                        <input type="text" [(ngModel)]="item.imageUrl" name="image_url"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="">Ingredients</label>
+                                        <span class="text-danger"> (Optional)</span>
+                                        <div class="d-flex flex-wrap mt-3">
+                                            @for(i of ingredient; track $index){
+                                            <div class="ingredient ps-3 pe-3 me-2 mb-2">
+                                                <input class="form-check-input" [checked]="checkIngredientStatus(i.id)"
+                                                    type="checkbox" [value]="i.id" (click)="getIngredients($event)">
+                                                <label class="form-check-label ms-2"
+                                                    for="checkDefault">{{i.ingredient}}</label>
+                                            </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-detail">
+                    <div class="row">
+                        <div class="col-md-5 ms-3">
+                            <img [src]="currentDetail?.imageUrl" alt="" class="img-fluid rounded mb-3">
+                        </div>
+                        <div class="col-md-6">
+                            <h2>{{currentDetail?.name}}</h2>
+                            <div class="d-flex" style="color: var(--bg-dark-blue);">Barcode : {{currentDetail?.barcode}}
+                                <span class="text-danger me-2 ms-2">|</span>
+                                <div class="box rounded-pill text-light bg-danger ps-3 pe-3"
+                                    style="width: fit-content;">
+                                    {{currentDetail?.category}}
+                                </div>
+                            </div>
+                            <p class="fs-2"><strong>Price : </strong><span class="text-danger">$
+                                    {{currentDetail?.sellPrice}}</span></p>
+                            <div class="{{currentDetail?.status ? 'bg-success':'bg-danger'}} rounded-pill ps-3 pe-3 text-light mb-2"
+                                style="width: fit-content;">
+                                {{currentDetail?.status ? 'Active':'Inactive'}}
+                            </div>
+                            <div class="d-flex flex-wrap gap-3">
+                                @for(p of currentIngredient; track $index){
+                                <div class="text-center">
+                                    <img [src]="p?.imageUrl" alt="" width="80" height="100" class="rounded mb-2">
+                                    <div>{{p?.ingredient}}</div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if(detail() == 0) {
+                @if(currentStep > 0){
+                <button type="button" class="btn btn-secondary" (click)="backStep()">
+                    <i class="bi bi-arrow-left"></i>
+                    <span class="ms-2">Back</span>
+                </button>
+                } @else {
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                }
+                @if(currentStep<2){ <button type="button" class="btn btn-primary" (click)="nextStep()">
+                    <span class="me-2">Next</span>
+                    <i class="bi bi-arrow-right"></i>
+                    </button>
+                    } @else {
+                    @if(!checkUpdate){
+                    <button type="button" class="btn btn-primary" (click)="SaveProduct()">Save</button>
+                    } @else {
+                    <button type="button" class="btn btn-primary" (click)="Update()">Update</button>
+                    }
+                    }
+                    } @else {
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="detail.set(0)">Add New</button>
+                    <button type="button" class="btn btn-primary" (click)="newUpdate()">Update this</button>
+                    }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end::modal -->
+<!-- start loading -->
+<div class="loader" [style.display]="loading()">
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+</div>
+<!-- end::loading -->
+<!-- start offcanvas filter -->
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasTopLabel">Filter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body row">
+        <div class="col-3">
+            <label for="">Filter by category</label>
+            <select class="form-select mt-1 b-style" #filterCategory name="filter_category" (change)="filterByCategory(filterCategory.value)">
+                <option value="All" selected>All</option>
+                <option value="Drink">Drink</option>
+                <option value="Food">Food</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="">Filter by status</label>
+            <select class="form-select mt-1 b-style" #filterStatus name="filter_status" (change)="filterByStatus(filterStatus.value)">
+                <option [value]="null" selected>All</option>
+                <option [value]="true">Active</option>
+                <option [value]="false">Inactive</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="">Filter by Ingredient</label>
+            <select class="form-select mt-1 b-style" #filterIngredient name="filter_ingredient" (change)="filterByIngredient(filterIngredient.value)">
+                <option value="All" selected>All</option>
+                @for(ingre of ingredient; track $index){
+                <option [value]="ingre.id">{{ingre.ingredient}}</option>
+                }
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="">Filter by price</label>
+            <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                    <label for="">From</label>
+                    <input type="number" #price1 name="sell_price" class="form-control ms-2 mt-1 b-style" (keydown.Enter)="filterByPrice(price1.value, price2.value)">
+                </div>
+                <div class="col-6 d-flex align-items-center">
+                    <label for="">To</label>
+                    <input type="number" #price2 name="sell_price" class="form-control ms-2 mt-1 b-style" (keydown.Enter)="filterByPrice(price1.value, price2.value)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end::offcanvas filter -->

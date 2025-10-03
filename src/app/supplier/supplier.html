@@ -1,0 +1,359 @@
+<main class="sub-main p-5">
+    <!-- start header -->
+    <header class="sub-head d-flex">
+        <div class="input-group mb-3 left-head">
+            <input type="search" #filter (keydown)="search(filter.value)" class="form-control search" placeholder="Search supplier..." />
+            <button class="btn search-btn rounded-end-circle" type="button">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <div class="right-head d-flex">
+            <button type="button" class="btn rounded-pill btn-style" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+    aria-controls="offcanvasTop">
+                <i class="bi bi-funnel-fill"></i>
+                <span class="ms-2">Filters</span>
+            </button>
+            <button type="button" class="btn rounded-pill btn-style ms-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" (click)="openModal(0)">
+                <i class="bi bi-plus-circle"></i>
+                <span class="ms-2">Add a supplier</span>
+            </button>
+        </div>
+    </header>
+    <!-- end::header -->
+    <!-- start-body -->
+    @defer (on timer(500ms)) {
+    <div class="table-body">
+        <!-- table head -->
+        <div class="head-table d-flex rounded-pill ps-4 pe-4 mt-3">
+            <span class="" style="width: 30%;">
+                Supplier Name<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 25%;">
+                Email<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 30%;">
+                Phone Number<i class="bi bi-chevron-expand"></i>
+            </span>
+            <span class="" style="width: 200px;">
+                Actions<i class="bi bi-chevron-expand"></i>
+            </span>
+        </div>
+        <!-- table body -->
+        <div class="main-body">
+            @for(item of displaySuppliers; track $index){
+            <div class="d-flex body-table ps-4 pe-4 rounded">
+                <div class="name" style="width: 30% !important;">
+                    <span class="">{{item.name}}</span>
+                </div>
+                <div class="barcode" style="width: 25% !important;">
+                    <span>{{item.contact.email}}</span>
+                </div>
+                <div class="price">
+                    <span>{{item.contact.phoneNumber}}</span>
+                </div>
+                <div class="action">
+                    <button type="button" class="btn btn-sm text-light me-2 btn-hover"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="edit(item)">
+                        <i class="bi bi-pencil me-2"></i>Edit
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-trash" (click)="Delete(item.id)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm text-light ms-2 btn-hover"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="showCurrentDetail(item)">
+                        Detail
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+    <!-- end::body -->
+</main>
+<!-- start modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="overflow: hidden;">
+            <div class="modal-header text-light" style="background-color: var(--bg-dark-blue);">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    @if(detail()==0){
+                        @if(!checkUpdate){
+                            Add new supplier
+                        } @else {
+                            Update supplier
+                        }
+                    } @else {
+                        Supplier detail
+                    }
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" [style.transform]="`translateX(-${detail()*50}%)`">
+                <div class="d-flex create-product">
+                    <div class="progressing p-3">
+                        <!-- From Uiverse.io by PriyanshuGupta28 -->
+                        <h3>Progressing</h3>
+                        <div class="stepper-box">
+                            <div class="stepper-step {{checkStep1()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep1()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>1</span>
+                                    }
+                                </div>
+                                <div class="stepper-line"></div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step One</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep1()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep1()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stepper-step {{checkStep2()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep2()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>2</span>
+                                    }
+                                </div>
+                                <div class="stepper-line"></div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step Two</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep2()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep2()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stepper-step {{checkStep3()}}">
+                                <div class="stepper-circle">
+                                    @if(checkStep3()=='stepper-completed'){
+                                        <i class="bi bi-check-lg"></i>
+                                    } @else { 
+                                        <span>3</span>
+                                    }
+                                </div>
+                                <div class="stepper-content">
+                                    <div class="stepper-title">Step Three</div>
+                                    <div class="stepper-status">
+                                        @if(checkStep3()=='stepper-completed'){
+                                            Completed
+                                        } @else if (checkStep3()=='stepper-active') {
+                                            In Progress
+                                        } @else {
+                                            Pending
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-process ps-3">
+                        <div class="process-head d-flex">
+                            <span [class.active]="currentStep===0">Step One</span>
+                            <span [class.active]="currentStep===1">Step Two</span>
+                            <span [class.active]="currentStep===2">Step Three</span>
+                        </div>
+                        <div class="process-body">
+                            <div class="each-step" #step
+                                [style.transform]="'translateX(-' + (currentStep * 33.33) + '%)'">
+                                <div class="step-one">
+                                    <h4 class="mt-3">Supplier Name</h4>
+                                    <div class="mt-3">
+                                        <label for="">Company Name</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" [(ngModel)]="item.name" name="name"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="mt-4">You have to complete customer name</p>
+                                        <ul>
+                                            <li>Customer name : name of customer</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="step-two">
+                                    <h4 class="mt-3">Contact</h4>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">Phone Number</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" [(ngModel)]="item.contact.phoneNumber" name="phoneNumber"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">Email</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" [(ngModel)]="item.contact.email" name="email"
+                                            class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="mt-4">You have to complete the Contact</p>
+                                        <ul>
+                                            <li>Phone number : customer's phone number</li>
+                                            <li>Email : customer's email</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="step-three">
+                                    <h4 class="mt-3">Address</h4>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">Street</label>
+                                        <span class="text-danger"> (Optional)</span>
+                                        <input type="text" [(ngModel)]="item.address.street" name="street" class="form-control mt-1 b-style">
+                                    </div>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">District</label>
+                                        <select class="form-select mt-1 b-style" name="district" [(ngModel)]="item.address.district">
+                                            @for(dis of districtsList;track $index){
+                                            <option [value]="dis">{{dis}}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="mt-3 pe-3">
+                                        <label for="">City</label>
+                                        <select class="form-select mt-1 b-style" name="city" [(ngModel)]="item.address.city">
+                                            @for(city of citiesList;track $index){
+                                            <option [value]="city">{{city}}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-detail">
+                    <div class="row">
+                        <div class="col-md-12 ms-4">
+                            <h2>{{currentDetail?.name}}</h2>
+                            <p class="fs-5 mt-1"><strong>Address</strong></p>
+                            <ul style="margin-top: -20px;">
+                                <li>
+                                    <strong>Street : </strong>
+                                    <span style="color: var(--bg-dark-blue);">{{currentDetail?.address.street}}</span>
+                                </li>
+                                <li>
+                                    <strong>District : </strong> 
+                                    <span style="color: var(--bg-dark-blue);">{{currentDetail?.address.district}}</span>
+                                </li>
+                                <li>
+                                    <strong>City : </strong> 
+                                    <span style="color: var(--bg-dark-blue);">{{currentDetail?.address.city}}</span>
+                                </li>
+                            </ul>
+                            <p class="fs-5 mt-1"><strong>Contact</strong></p>
+                            <ul style="margin-top: -20px;">
+                                <li>
+                                    <strong>Phone Number : </strong>
+                                    <span style="color: var(--bg-dark-blue);">{{currentDetail?.contact.phoneNumber}}</span>
+                                </li>
+                                <li>
+                                    <strong>Email : </strong> 
+                                    <span style="color: var(--bg-dark-blue);">{{currentDetail?.contact.email}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if(detail() == 0) {
+                @if(currentStep > 0){
+                <button type="button" class="btn btn-secondary" (click)="backStep()">
+                    <i class="bi bi-arrow-left"></i>
+                    <span class="ms-2">Back</span>
+                </button>
+                } @else {
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                }
+                @if(currentStep<2){ <button type="button" class="btn btn-primary" (click)="nextStep()">
+                    <span class="me-2">Next</span>
+                    <i class="bi bi-arrow-right"></i>
+                    </button>
+                    } @else {
+                    @if(!checkUpdate){
+                    <button type="button" class="btn btn-primary" (click)="Save()">Save</button>
+                    } @else {
+                    <button type="button" class="btn btn-primary" (click)="Update()">Update</button>
+                    }
+                    }
+                    } @else {
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="detail.set(0)">Add New</button>
+                    <button type="button" class="btn btn-primary" (click)="newUpdate()">Update this</button>
+                    }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end::modal -->
+<!-- start loading -->
+<div class="loader" [style.display]="loading()">
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+    <div class="circle">
+        <div class="dot"></div>
+        <div class="outline"></div>
+    </div>
+</div>
+<!-- end::loading -->
+<!-- start offcanvas filter -->
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasTopLabel">Filter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body row">
+        <div class="col-6 apply-color">
+            <label for="">Filter by district</label>
+            <select class="form-select mt-1 b-style" #filterDistrict name="filter_district" (change)="filterByAddress(filterDistrict.value, filterCity.value)">
+                <option value="All" selected>All</option>
+                @for(dis of districtsList;track $index){
+                <option [value]="dis">{{dis}}</option>
+                }
+            </select>
+        </div>
+        <div class="col-6 apply-color">
+            <label for="">Filter by district</label>
+            <select class="form-select mt-1 b-style" #filterCity name="filter_city" (change)="filterByAddress(filterDistrict.value,filterCity.value)">
+                <option value="All" selected>All</option>
+                @for(city of citiesList;track $index){
+                <option [value]="city">{{city}}</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+<!-- end::offcanvas filter -->

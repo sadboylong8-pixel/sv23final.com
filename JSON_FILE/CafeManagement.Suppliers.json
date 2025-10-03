@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "68db55e4fa5f030a4568c280"
+  },
+  "name": "Fresh Milk",
+  "contact": {
+    "phone_number": "09876543",
+    "email": "Freshmilk123@gmail.com"
+  },
+  "address": {
+    "street": "4st",
+    "district": "Chamkar Mon",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e0"
+  },
+  "name": "Golden Grain Roasters",
+  "contact": {
+    "phone_number": "012345678",
+    "email": "orders@goldengrain.com.kh"
+  },
+  "address": {
+    "street": "Street 154",
+    "district": "Khan Daun Penh",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e1"
+  },
+  "name": "Mekong Dairy Co.",
+  "contact": {
+    "phone_number": "015556789",
+    "email": "info@mekongdairy.kh"
+  },
+  "address": {
+    "street": "National Road 5",
+    "district": "Russey Keo",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e2"
+  },
+  "name": "Siem Reap Syrups",
+  "contact": {
+    "phone_number": "063123456",
+    "email": "contact@srpsyrp.com"
+  },
+  "address": {
+    "street": "Pokambor Ave",
+    "district": "Slor Kram",
+    "city": "Siem Reap"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e3"
+  },
+  "name": "Cardamom Confections",
+  "contact": {
+    "phone_number": "016789123",
+    "email": "sales@cardamom-sweets.kh"
+  },
+  "address": {
+    "street": "Street 21",
+    "district": "Toul Tom Poung",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e4"
+  },
+  "name": "Bokor Mountain Tea",
+  "contact": {
+    "phone_number": "034987654",
+    "email": "harvest@bokortea.com"
+  },
+  "address": {
+    "street": "Preah Monivong Blvd",
+    "district": "Preah Sihanouk",
+    "city": "Kampot"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e5"
+  },
+  "name": "Tonle Sap Sugars",
+  "contact": {
+    "phone_number": "023456789",
+    "email": "wholesale@tonlesapsugar.kh"
+  },
+  "address": {
+    "street": "Street 598",
+    "district": "Chbar Ampov",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e6"
+  },
+  "name": "Angkor Bakery Supplies",
+  "contact": {
+    "phone_number": "012987654",
+    "email": "orders@angkor-bakery.kh"
+  },
+  "address": {
+    "street": "Street 6",
+    "district": "Svay Dangkum",
+    "city": "Siem Reap"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db5748b647fb1f43f908e9"
+  },
+  "name": "Ratanakiri Spices",
+  "contact": {
+    "phone_number": "075445566",
+    "email": "spices@rattanakiri.org"
+  },
+  "address": {
+    "street": "National Road 78",
+    "district": "Andong Meas",
+    "city": "Ratanakiri"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965e5"
+  },
+  "name": "Sweet Delights Sugar Supplier",
+  "contact": {
+    "phone_number": "015678234",
+    "email": "sweetdelights@email.com"
+  },
+  "address": {
+    "street": "45 Monivong Blvd",
+    "district": "Daun Penh",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965e6"
+  },
+  "name": "Golden Syrup Cambodia",
+  "contact": {
+    "phone_number": "077889922",
+    "email": "goldensyrup@email.com"
+  },
+  "address": {
+    "street": "78 Street 63",
+    "district": "Boeung Keng Kang",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965e7"
+  },
+  "name": "Royal Tea Importers",
+  "contact": {
+    "phone_number": "096784512",
+    "email": "royaltea@email.com"
+  },
+  "address": {
+    "street": "22 Sihanouk Blvd",
+    "district": "7 Makara",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965e8"
+  },
+  "name": "Cambodia Spice Masters",
+  "contact": {
+    "phone_number": "089665544",
+    "email": "spicemasters@email.com"
+  },
+  "address": {
+    "street": "15 Street 184",
+    "district": "Daun Penh",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965e9"
+  },
+  "name": "Creamy Delights Dairy",
+  "contact": {
+    "phone_number": "093221133",
+    "email": "creamydelights@email.com"
+  },
+  "address": {
+    "street": "9 Street 271",
+    "district": "Toul Kork",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965ea"
+  },
+  "name": "Organic Fruits Cambodia",
+  "contact": {
+    "phone_number": "078996655",
+    "email": "organicfruits@email.com"
+  },
+  "address": {
+    "street": "33 Russian Blvd",
+    "district": "Sen Sok",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965eb"
+  },
+  "name": "Bakery Essentials Co.",
+  "contact": {
+    "phone_number": "012998877",
+    "email": "bakeryessentials@email.com"
+  },
+  "address": {
+    "street": "67 Norodom Blvd",
+    "district": "Chamkar Mon",
+    "city": "Phnom Penh"
+  }
+},
+{
+  "_id": {
+    "$oid": "68db57a8c86eeece95b965ec"
+  },
+  "name": "Chocolate Paradise",
+  "contact": {
+    "phone_number": "095446677",
+    "email": "chocoparadise@email.com"
+  },
+  "address": {
+    "street": "88 Street 51",
+    "district": "Boeung Keng Kang",
+    "city": "Phnom Penh"
+  }
+}]
